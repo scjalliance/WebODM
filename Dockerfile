@@ -9,7 +9,7 @@ RUN mkdir /webodm
 WORKDIR /webodm
 
 RUN curl --silent --location https://deb.nodesource.com/setup_8.x | bash -
-RUN apt-get -qq install -y nodejs
+RUN apt-get -qq update && apt-get -qq install -y nodejs && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Configure use of testing branch of Debian
 RUN printf "Package: *\nPin: release a=stable\nPin-Priority: 900\n" > /etc/apt/preferences.d/stable.pref
@@ -18,7 +18,7 @@ RUN printf "deb     http://ftp.us.debian.org/debian/    stable main contrib non-
 RUN printf "deb     http://ftp.us.debian.org/debian/    testing main contrib non-free\ndeb-src http://ftp.us.debian.org/debian/    testing main contrib non-free" > /etc/apt/sources.list.d/testing.list
 
 # Install Node.js GDAL, nginx, letsencrypt, psql
-RUN apt-get -qq update && apt-get -qq install -t testing -y binutils libproj-dev gdal-bin nginx grass-core certbot && apt-get -qq install -y gettext-base cron postgresql-client-9.6
+RUN apt-get -qq update && apt-get -qq install -t testing -y binutils libproj-dev gdal-bin nginx grass-core certbot && apt-get -qq install -y gettext-base cron postgresql-client-9.6 && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install pip reqs
 ADD requirements.txt /webodm/
