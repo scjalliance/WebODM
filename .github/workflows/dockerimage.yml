@@ -7,6 +7,8 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v1
+    - name: Get Environment
+      run: env
     - name: Build the Docker image
       run: docker build -t docker.pkg.github.com/${{github.owner}}/${{github.repo}}/webodm:${{github.tag}} .
     - name: Publish the Docker image
