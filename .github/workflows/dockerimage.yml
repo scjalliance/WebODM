@@ -10,8 +10,8 @@ jobs:
     - name: Get Environment
       run: env
     - name: Build the Docker image
-      run: docker build -t docker.pkg.github.com/${{github.owner}}/${{github.repo}}/webodm:${{github.tag}} .
+      run: docker build -t docker.pkg.github.com/${{github.repository}}/webodm:${{github.sha}} .
     - name: Publish the Docker image
       run: |
         docker login docker.pkg.github.com -u emmaly -p ${{secrets.EMMALY_PACKAGEREGISTRY_WRITE_TOKEN}}
-        docker push docker.pkg.github.com/${{github.owner}}/${{github.repo}}/webodm:${{github.tag}}
+        docker push docker.pkg.github.com/${{github.repository}}/webodm:${{github.sha}}
