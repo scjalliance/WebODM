@@ -8,8 +8,8 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Build the Docker image
-      run: docker build -t docker.pkg.github.com/{owner}/{repo}/webodm:{tag} .
+      run: docker build -t docker.pkg.github.com/${{github.owner}}/${{github.repo}}/webodm:${{github.tag}} .
     - name: Publish the Docker image
       run: |
         docker login docker.pkg.github.com -u emmaly -p ${{secrets.EMMALY_PACKAGEREGISTRY_WRITE_TOKEN}}
-        docker push docker.pkg.github.com/{owner}/{repo}/webodm:{tag}
+        docker push docker.pkg.github.com/${{github.owner}}/${{github.repo}}/webodm:${{github.tag}}
